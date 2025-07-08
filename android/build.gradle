@@ -1,39 +1,9 @@
-group 'com.mapbox.mapboxgl'
-version '1.0-SNAPSHOT'
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1'
-    }
+plugins {
+    id 'com.android.library'
 }
 
-rootProject.allprojects {
-    def token = System.getenv('SDK_REGISTRY_TOKEN') ?: project.properties['MAPBOX_DOWNLOADS_TOKEN']
-    if (token == null || token.empty) {
-        throw new Exception("SDK Registry token is null. See README.md for more information.")
-    }
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url 'https://api.mapbox.com/downloads/v2/releases/maven'
-            authentication {
-                basic(BasicAuthentication)
-            }
-            credentials {
-                username = "mapbox"
-                password = token
-            }
-        }
-    }
-}
-
-apply plugin: 'com.android.library'
+group = 'com.mapbox.mapboxgl'
+version = '1.0-SNAPSHOT'
 
 android {
     namespace 'com.mapbox.mapboxgl'
@@ -46,13 +16,32 @@ android {
         multiDexEnabled true
     }
 
-    lintOptions {
+    lint {
         disable 'InvalidPackage'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    def token = System.getenv('SDK_REGISTRY_TOKEN') ?: project.properties['MAPBOX_DOWNLOADS_TOKEN']
+    if (token == null || token.empty) {
+        throw new GradleException("SDK Registry token is null. See README.md for more information.")
+    }
+    maven {
+        url 'https://api.mapbox.com/downloads/v2/releases/maven'
+        authentication {
+            basic(BasicAuthentication)
+        }
+        credentials {
+            username = "mapbox"
+            password = token
+        }
     }
 }
 
