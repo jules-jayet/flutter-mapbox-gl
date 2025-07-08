@@ -45,19 +45,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dependencies {
-        implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2"
-        implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0"
-        implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.12.0"
-        implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.7.0'
-        implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-        implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
-    }
+}
+
+dependencies {
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.12.0"
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
 }
